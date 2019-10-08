@@ -39,11 +39,9 @@ public class FileRest {
             return new ResponseEntity<>("Not allowed content type: " + type, BAD_REQUEST);
         }
 
-        counterService.process(name, text);
-        long result = counterService.getCounter(name);
+        counterService.processFile(name, text);
 
-        String msg = String.format("Successfully uploaded: %s (%d)", name, result);
-        return new ResponseEntity<>(msg, new HttpHeaders(), OK);
+        return new ResponseEntity<>("File uploaded: " + name, new HttpHeaders(), OK);
     }
 
 }

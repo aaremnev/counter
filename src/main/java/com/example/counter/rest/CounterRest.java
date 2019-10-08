@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/counter")
@@ -16,17 +16,19 @@ public class CounterRest {
     @Autowired CounterService counterService;
 
     @GetMapping
-    Collection<String> listCounters() {
-        return counterService.listCounters();
+    Map listCounters() {
+        return counterService.listAllCounters();
     }
 
     @GetMapping("/{name:.+}")
     @ResponseBody
-    public Long getCounter(@PathVariable String name) {
-        Long count = counterService.getCounter(name);
+    public Map getFileCounters(@PathVariable String name) {
+        Map count = counterService.getFileCounters(name);
+
         if (count == null) {
             throw new CounterNotFoundException(name);
         }
+
         return count;
     }
 
