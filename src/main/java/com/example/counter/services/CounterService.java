@@ -4,13 +4,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Stream;
 
-import static java.util.stream.Collectors.counting;
-import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.*;
 
 @Slf4j
 @Service
@@ -36,15 +36,21 @@ public class CounterService {
     }
 
     public Map<String, Long> getTotalCounters() {
-        Map<String, Long> totalCounters = new HashMap<>();
+        log.info("Merging {} counters", fileCounters.size());
 
-        for(Map<String, Long> nameCounters: fileCounters.values()) {
-            for(Entry<String, Long> entry: nameCounters.entrySet()) {
-                totalCounters.merge(entry.getKey(), entry.getValue(), Long::sum);
-            }
-        }
+        return fileCounters.values().stream()
+                .map(Map::entrySet)
+                .flatMap(Collection::stream)
+                .collect(toMap(Entry::getKey, Entry::getValue, Long::sum));
 
-        return totalCounters;
+//        Map<String, Long> totalCounters = new HashMap<>();
+//        for(Map<String, Long> nameCounters: fileCounters.values()) {
+//            for(Entry<String, Long> entry: nameCounters.entrySet()) {
+//                totalCounters.merge(entry.getKey(), entry.getValue(), Long::sum);
+//            }
+//        }
+//
+//        return totalCounters;
     }
 
     private Map<String, Long> processInternal(String text) {

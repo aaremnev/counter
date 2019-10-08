@@ -1,5 +1,6 @@
 package com.example.counter.rest;
 
+import com.example.counter.exceptions.NotSupportedContentException;
 import com.example.counter.services.CounterService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.OK;
 
 @Slf4j
@@ -29,11 +29,11 @@ public class FileRest {
         String type = file.getContentType();
 
         if (file.isEmpty()) {
-            return new ResponseEntity<>("File is empty", OK);
+            throw new NotSupportedContentException("File is empty");
         }
 
         if(!TEXT_PLAIN.equalsIgnoreCase(type)) {
-            return new ResponseEntity<>("Not allowed content type: " + type, BAD_REQUEST);
+            throw new NotSupportedContentException("Not allowed content type: " + type);
         }
 
         counterService.processFile(name, text);
