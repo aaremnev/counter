@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.counting;
@@ -26,12 +27,24 @@ public class CounterService {
         log.info("Processed file {}: {}", name);
     }
 
+    public String[] getCounterNames() {
+        return fileCounters.keySet().toArray(new String[0]);
+    }
+
     public Map<String, Long> getFileCounters(String name) {
         return fileCounters.get(name);
     }
 
-    public Map<String, Map<String, Long>> listAllCounters() {
-        return fileCounters;
+    public Map<String, Long> getTotalCounters() {
+        Map<String, Long> totalCounters = new HashMap<>();
+
+        for(Map<String, Long> nameCounters: fileCounters.values()) {
+            for(Entry<String, Long> entry: nameCounters.entrySet()) {
+                totalCounters.merge(entry.getKey(), entry.getValue(), Long::sum);
+            }
+        }
+
+        return totalCounters;
     }
 
     private Map<String, Long> processInternal(String text) {

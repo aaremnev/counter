@@ -16,8 +16,8 @@ public class CounterRest {
     @Autowired CounterService counterService;
 
     @GetMapping
-    Map listCounters() {
-        return counterService.listAllCounters();
+    Map getTotalCounters() {
+        return counterService.getTotalCounters();
     }
 
     @GetMapping("/{name:.+}")

@@ -5,10 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
@@ -43,5 +40,11 @@ public class FileRest {
 
         return new ResponseEntity<>("File uploaded: " + name, new HttpHeaders(), OK);
     }
+
+    @GetMapping
+    String[] getFiles() {
+        return counterService.getCounterNames();
+    }
+
 
 }
