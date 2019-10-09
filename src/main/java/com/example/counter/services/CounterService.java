@@ -17,7 +17,7 @@ public class CounterService {
     public void processFile(String name, String text) {
         log.info("Processing file: {}...", name);
 
-        fileCounters.put(name, WordProcessor.processText(text));
+        fileCounters.put(name, WordProcessor.stringSplitWithCollector(text));
 
         log.info("Processed file {}", name);
     }

@@ -10,6 +10,9 @@ import java.util.Map;
 
 import static java.nio.file.Files.readAllBytes;
 
+@BenchmarkMode(Mode.Throughput)
+@Fork(value = 1, warmups = 1)
+@Warmup(iterations = 2)
 public class MapMergerBenchmark {
 
     private final static String [] files = {"lipsum1.txt", "lipsum2.txt"};
@@ -22,7 +25,7 @@ public class MapMergerBenchmark {
     private static Map<String, Long> readMap(String fileName) {
         try {
             String text = new String(readAllBytes(Paths.get(new ClassPathResource("data/" + fileName).getURI())));
-            return WordProcessor.processText(text);
+            return WordProcessor.stringSplitWithCollector(text);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -38,33 +41,21 @@ public class MapMergerBenchmark {
     }
 
     @Benchmark
-    @BenchmarkMode(Mode.Throughput)
-    @Fork(value = 1, warmups = 1)
-    @Warmup(iterations = 2)
     public void iterators(){
         MapMerger.iterators(maps);
     }
 
     @Benchmark
-    @BenchmarkMode(Mode.Throughput)
-    @Fork(value = 1, warmups = 1)
-    @Warmup(iterations = 2)
     public void iteratorsAndMerge(){
         MapMerger.iteratorsAndMerge(maps);
     }
 
     @Benchmark
-    @BenchmarkMode(Mode.Throughput)
-    @Fork(value = 1, warmups = 1)
-    @Warmup(iterations = 2)
     public void streams(){
         MapMerger.streams(maps);
     }
 
     @Benchmark
-    @BenchmarkMode(Mode.Throughput)
-    @Fork(value = 1, warmups = 1)
-    @Warmup(iterations = 2)
     public void parallelStreams(){
         MapMerger.streams(maps);
     }
