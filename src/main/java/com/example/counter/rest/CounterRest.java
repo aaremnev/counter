@@ -2,18 +2,19 @@ package com.example.counter.rest;
 
 import com.example.counter.exceptions.CounterNotFoundException;
 import com.example.counter.services.CounterService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+@Slf4j
 @RestController
 @RequestMapping("/counter")
-@Slf4j
+@RequiredArgsConstructor
 public class CounterRest {
 
-    @Autowired CounterService counterService;
+    private final CounterService counterService;
 
     @GetMapping
     Map getTotalCounters() {

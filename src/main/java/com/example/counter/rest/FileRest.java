@@ -2,8 +2,8 @@ package com.example.counter.rest;
 
 import com.example.counter.exceptions.NotSupportedContentException;
 import com.example.counter.services.CounterService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,12 +14,12 @@ import static org.springframework.http.HttpStatus.OK;
 @Slf4j
 @RestController
 @RequestMapping("/file")
+@RequiredArgsConstructor
 public class FileRest {
 
     private static final String TEXT_PLAIN = "text/plain";
 
-    @Autowired
-    private CounterService counterService;
+    private final CounterService counterService;
 
     @PostMapping
     ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file) throws Exception {
