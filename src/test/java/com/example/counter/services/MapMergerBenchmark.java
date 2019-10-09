@@ -1,9 +1,6 @@
 package com.example.counter.services;
 
-import org.openjdk.jmh.annotations.Benchmark;
-import org.openjdk.jmh.annotations.BenchmarkMode;
-import org.openjdk.jmh.annotations.Fork;
-import org.openjdk.jmh.annotations.Mode;
+import org.openjdk.jmh.annotations.*;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.IOException;
@@ -43,6 +40,7 @@ public class MapMergerBenchmark {
     @Benchmark
     @BenchmarkMode(Mode.Throughput)
     @Fork(value = 1, warmups = 1)
+    @Warmup(iterations = 2)
     public void iterators(){
         MapMerger.iterators(maps);
     }
@@ -50,6 +48,7 @@ public class MapMergerBenchmark {
     @Benchmark
     @BenchmarkMode(Mode.Throughput)
     @Fork(value = 1, warmups = 1)
+    @Warmup(iterations = 2)
     public void iteratorsAndMerge(){
         MapMerger.iteratorsAndMerge(maps);
     }
@@ -57,6 +56,7 @@ public class MapMergerBenchmark {
     @Benchmark
     @BenchmarkMode(Mode.Throughput)
     @Fork(value = 1, warmups = 1)
+    @Warmup(iterations = 2)
     public void streams(){
         MapMerger.streams(maps);
     }
@@ -64,6 +64,7 @@ public class MapMergerBenchmark {
     @Benchmark
     @BenchmarkMode(Mode.Throughput)
     @Fork(value = 1, warmups = 1)
+    @Warmup(iterations = 2)
     public void parallelStreams(){
         MapMerger.streams(maps);
     }
