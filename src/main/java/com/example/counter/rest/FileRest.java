@@ -2,6 +2,7 @@ package com.example.counter.rest;
 
 import com.example.counter.exceptions.NotSupportedContentException;
 import com.example.counter.services.CounterService;
+import io.micrometer.core.annotation.Timed;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -12,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import static org.springframework.http.HttpStatus.OK;
 
 @Slf4j
+@Timed
 @RestController
 @RequestMapping("/file")
 @RequiredArgsConstructor

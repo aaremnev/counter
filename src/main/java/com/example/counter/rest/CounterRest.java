@@ -2,6 +2,7 @@ package com.example.counter.rest;
 
 import com.example.counter.exceptions.CounterNotFoundException;
 import com.example.counter.services.CounterService;
+import io.micrometer.core.annotation.Timed;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @Slf4j
+@Timed(percentiles = 0.95, histogram = true)
 @RestController
 @RequestMapping("/counter")
 @RequiredArgsConstructor
