@@ -1,0 +1,28 @@
+spring:
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 200MB
+      max-request-size: 215MB
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  metrics:
+    web:
+      server:
+        auto-time-requests: true
+    distribution:
+      percentiles:
+        http.server.requests: 0.9,0.95,0.99
+      percentiles-histogram:
+        http.server.requests: true
+      sla:
+        http.server.requests: 10ms,100ms
+
+logging:
+  level:
+    root: info
