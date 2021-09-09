@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.com/aaremnev/counter.svg?branch=master)](https://travis-ci.com/aaremnev/counter)
 
 
-# Word Counter Service
+# Word Counter Service - develop
 
 
 ### Building and starting application
